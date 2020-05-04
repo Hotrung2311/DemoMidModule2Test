@@ -121,42 +121,28 @@ public class ProductManager implements Function {
     @Override
     public void sort(boolean type) {
         ArrayList<Product> sortList = this.list;
-
+        Product tempPro;
         if (type) {
-            for (int i = 0; i < sortList.size(); i++) {
-                int temp = sortList.get(i).getPrice();
-                int j = i - 1;
-                while (j >= 0 && sortList.get(j).getPrice() > sortList.get(i).getPrice()) {
-                    sortList.get(j + 1).setPrice(sortList.get(j).getPrice());
-                    j = j - 1;
-                }
-                sortList.get(j + 1).setPrice(temp);
-            }
-        } else {
-            for (int i = 0; i < sortList.size() - 1; i++) {
-                Product currentProduct = sortList.get(i);
-                int currentMax = sortList.get(i).getPrice();
-                int currentMaxIndex = i;
-
-                for (int j = i + 1; j < sortList.size(); j++) {
-                    if (currentMax < sortList.get(j).getPrice()) {
-                        currentMax = sortList.get(j).getPrice();
-                        currentProduct = sortList.get(j);
-                        currentMaxIndex = j;
+            for (int i = 0; i<sortList.size()-1; i++){
+                for (int j = 0; j<sortList.size()-1; j++) {
+                    if (sortList.get(j).getPrice() > sortList.get(j + 1).getPrice()) {
+                        Product temp;
+                        temp = sortList.get(j);
+                        sortList.set(j, sortList.get(j+1));
+                        sortList.set(j+1, temp);
                     }
                 }
-                sortList.get(currentMaxIndex).setPrice(sortList.get(i).getPrice());
-
-                sortList.get(currentMaxIndex).setName(sortList.get(i).getName());
-                sortList.get(currentMaxIndex).setId(sortList.get(i).getId());
-                sortList.get(currentMaxIndex).setStatus(sortList.get(i).getStatus());
-                sortList.get(currentMaxIndex).setDescription(sortList.get(i).getDescription());
-
-                sortList.get(i).setPrice(currentMax);
-                sortList.get(i).setName(currentProduct.getName());
-                sortList.get(i).setId(currentProduct.getId());
-                sortList.get(i).setStatus(currentProduct.getStatus());
-                sortList.get(i).setDescription(currentProduct.getDescription());
+            }
+        } else {
+            for (int i = 0; i<sortList.size()-1; i++){
+                for (int j = 0; j<sortList.size()-1; j++) {
+                    if (sortList.get(j).getPrice() < sortList.get(j + 1).getPrice()) {
+                        Product temp;
+                        temp = sortList.get(j);
+                        sortList.set(j, sortList.get(j+1));
+                        sortList.set(j+1, temp);
+                    }
+                }
             }
         }
         for (int i = 0; i < sortList.size(); i++) {

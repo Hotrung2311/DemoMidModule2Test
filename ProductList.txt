@@ -1,1 +1,4 @@
+123, Chuối, 12000, cứng, còn xanh
+456, Đào, 70000, hồng, nhiều lông
 789, Bưởi, 50000, to, ngọt
+910, Cam, 10000, tròn, mọng nước

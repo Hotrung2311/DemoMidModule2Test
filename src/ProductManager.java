@@ -14,7 +14,6 @@ public class ProductManager implements Function {
 
     @Override
     public void displayAllProducts() {
-
         for (int i = 0; i < this.list.size(); i++) {
             System.out.print("Product " + (Integer) (i + 1) + ": ");
             System.out.println(this.list.get(i).toString());
@@ -133,14 +132,14 @@ public class ProductManager implements Function {
                 }
                 sortList.get(j + 1).setPrice(temp);
             }
-        }else {
-            for (int i = 0; i < sortList.size() - 1; i++){
+        } else {
+            for (int i = 0; i < sortList.size() - 1; i++) {
                 Product currentProduct = sortList.get(i);
                 int currentMax = sortList.get(i).getPrice();
                 int currentMaxIndex = i;
 
                 for (int j = i + 1; j < sortList.size(); j++) {
-                    if (currentMax < sortList.get(j).getPrice()){
+                    if (currentMax < sortList.get(j).getPrice()) {
                         currentMax = sortList.get(j).getPrice();
                         currentProduct = sortList.get(j);
                         currentMaxIndex = j;
@@ -176,19 +175,22 @@ public class ProductManager implements Function {
         }
     }
 
-    private void update(){
-        for (int i = 0; i < this.list.size(); i++) {
-            Product updateProduct = list.get(i);
-            String content = updateProduct.getId() + ", " + updateProduct.getName() + ", " + updateProduct.getPrice() + ", " + updateProduct.getStatus() + ", " + updateProduct.getDescription();
+    private void update() {
+
 
             // If the file doesn't exists, create and write to it
             // If the file exists, truncate (remove all content) and write to it
-            try (FileWriter writer = new FileWriter("ProductList.txt");
-                 BufferedWriter bw = new BufferedWriter(writer)) {
-
-                bw.write(content);
+            try {
+                FileWriter writer = new FileWriter("ProductList.txt");
+                BufferedWriter bw = new BufferedWriter(writer);
+                for (int i = 0; i < this.list.size(); i++) {
+                    Product updateProduct = this.list.get(i);
+                    String content = updateProduct.getId() + ", " + updateProduct.getName() + ", " + updateProduct.getPrice() + ", " + updateProduct.getStatus() + ", " + updateProduct.getDescription();
+                    bw.write(content);
+                    bw.newLine();
+                }
 //                bw.flush();
-                bw.close();
+                    bw.close();
             } catch (IOException e) {
                 System.err.format("IOException: %s%n", e);
             }
@@ -196,4 +198,3 @@ public class ProductManager implements Function {
 
     }
 
-}
